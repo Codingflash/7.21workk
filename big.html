@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+       
+            *{
+                padding: 0px;
+                 margin: 0px;
+              }
+              
+             .box{
+                 margin: 0px;
+                  width: 350px;
+                  height: 350px;
+                  position: relative;
+             }
+             .cover{
+                  width: 150px;
+                  height: 150px;
+                  opacity: 0.3;
+                  position: absolute;
+                  top: 0px;
+                  left: 0px;
+                  display: none;
+              }
+              
+              .big{
+                  position: absolute;
+                  top: 0px;
+                  left: 360px;
+                  display: none;
+                  overflow: hidden;
+                  height: 400px;
+                  width: 400px;
+                  border: 3px solid blue;
+              }
+              
+              .big img{
+                  position: absolute;
+              }
+    </style>
+
+</head>
+<body>
+          <div id="box" class="box">
+                 <div class="small">
+                     <img src="https://img.alicdn.com/imgextra/i4/2228361831/O1CN01QGG8Hy1POdnwot0SU_!!2228361831.jpg_430x430q90.jpg" width="350px"height="350px" style="border:pink 3px solid">
+                     <div class="cover"></div>
+                 </div>
+                 <div class="big">
+                     <img src="https://img.alicdn.com/imgextra/i4/2228361831/O1CN01QGG8Hy1POdnwot0SU_!!2228361831.jpg_430x430q90.jpg" width="600px"height="600px">
+                 </div>
+             </div>
+<script type="text/javascript">
+    var box=document.getElementById('box');
+    var smallBox=box.children[0];
+    var bigBox=box.children[1];
+    var cover=smallBox.children[1];
+    var bigImage=bigBox.children[0];
+    box.onmouseenter=function(){
+    cover.style.display="block";
+    bigBox.style.display="block";
+    }
+    box.onmouseleave=function(){
+    cover.style.display="none";
+    bigBox.style.display="none";
+    }
+                 
+box.onmousemove=function(e){
+e = e || window.event;
+var mouse_in_documentX=e.pageX || e.clientX + (document.documentElement.scrollLeft || document.body.scrollLeft);
+
+
+var mouse_in_documentY=e.pageY || e.clientY+(document.documentElement.scrollTop || document.body.scrollTop);
+
+var mouse_in_boxX=mouse_in_documentX-box.offsetLeft;
+var mouse_in_boxY=mouse_in_documentY-box.offsetTop;
+
+var coverX=mouse_in_boxX - cover.offsetWidth/2 ;
+var coverY=mouse_in_boxY - cover.offsetHeight/2;
+coverX= ( coverX < 0 ) ? 0 : coverX;
+coverY= ( coverY < 0 ) ? 0 : coverY;
+
+coverX=( coverX > ( box.offsetWidth - cover.offsetWidth)) ? ( box.offsetWidth - cover.offsetWidth) : coverX;
+
+coverY=( coverY > ( box.offsetHeight - cover.offsetHeight)) ? ( box.offsetHeight - cover.offsetHeight) : coverY;
+
+cover.style.top=coverY + 'px';
+cover.style.left=coverX + 'px';
+var coverMax=box.offsetWidth-cover.offsetWidth;
+var bigImageMax=bigImage.offsetWidth-bigBox.offsetWidth;
+var bigImageX=coverX*bigImageMax/coverMax;
+var bigImageY=coverY*bigImageMax/coverMax;
+                    
+bigImage.style.top=-bigImageY+'px';
+bigImage.style.left=-bigImageX+'px';
+}
+</script>
+
+</body>
+</html>
